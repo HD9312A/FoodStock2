@@ -10,7 +10,7 @@ class Produto: # Classe para representar um produto genérico, com atributos com
         self.data_validade = data_validade # Atributo para armazenar a data de validade do produto
 
     def mostrar(self): # Método para mostrar as informações do produto, pode ser sobrescrito por subclasses para mostrar informações adicionais
-        print(f"Produto: {self.nome}, Categoria: {self.categoria}, Quantidade: {self.quantidade}") # Imprime as informações do produto, método básico para mostrar as informações do produto
+        print(f"Produto: {self.nome} | Categoria: {self.categoria} | Quantidade: {self.quantidade}") # Imprime as informações do produto, método básico para mostrar as informações do produto
 
 class ProdutoPerecivel(Produto): # Subclasse que representa um produto com validade, herda da classe Produto
     def __init__(self, nome, categoria, quantidade, unidade, quantidade_minima, data_validade): # Construtor para inicializar os atributos do produto com validade, chama o construtor da classe base para inicializar os atributos comuns e adiciona o atributo de validade
@@ -18,7 +18,7 @@ class ProdutoPerecivel(Produto): # Subclasse que representa um produto com valid
         self.validade = datetime.strptime(data_validade, "%Y-%m-%d") # Converte a string de validade para um objeto datetime, permitindo manipulação de datas
 
     def mostrar(self): # Sobrescrita do método mostrar para incluir a informação de validade, mostrando as informações do produto e a validade formatada
-        print(f"Produto: {self.nome} |Categoria: {self.categoria} | Validade: {self.validade.strftime('%d/%m/%Y')}") # Imprime as informações do produto, incluindo a validade formatada, sobrescreve o método mostrar da classe base para mostrar informações adicionais específicas para produtos com validade.
+        print(f"Produto: {self.nome} | Categoria: {self.categoria} | Validade: {self.validade.strftime('%d/%m/%Y')}") # Imprime as informações do produto, incluindo a validade formatada, sobrescreve o método mostrar da classe base para mostrar informações adicionais específicas para produtos com validade.
 
 class Bebida(ProdutoPerecivel): # Subclasse que representa um produto do tipo bebida, herda da classe Produto
     def __init__(self, nome, categoria, quantidade, unidade, quantidade_minima, data_validade, quantidade_unitaria): # Construtor para inicializar os atributos do produto do tipo bebida, chama o construtor da classe base para inicializar os atributos comuns e adiciona o atributo de quantidade unitária

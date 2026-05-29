@@ -1,0 +1,1324 @@
+<!-- Movimentações - FoodStock -->
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Histórico de Movimentações | FoodStock</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#00354a",
+                    "surface-dim": "#0b1326",
+                    "on-tertiary-fixed-variant": "#881d24",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-tertiary-fixed": "#410006",
+                    "on-surface-variant": "#bdc8d1",
+                    "secondary-container": "#00a572",
+                    "on-secondary": "#003824",
+                    "inverse-surface": "#dae2fd",
+                    "on-primary-fixed": "#001e2c",
+                    "outline": "#87929a",
+                    "on-tertiary": "#670211",
+                    "inverse-primary": "#00668a",
+                    "surface-variant": "#2d3449",
+                    "surface-tint": "#7bd0ff",
+                    "on-error": "#690005",
+                    "on-tertiary-container": "#841a22",
+                    "background": "#0b1326",
+                    "surface-container-high": "#222a3d",
+                    "surface-container-highest": "#2d3449",
+                    "primary-fixed": "#c4e7ff",
+                    "on-primary-container": "#004965",
+                    "on-secondary-fixed": "#002113",
+                    "error-container": "#93000a",
+                    "outline-variant": "#3e484f",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "primary-container": "#38bdf8",
+                    "inverse-on-surface": "#283044",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#4edea3",
+                    "surface-bright": "#31394d",
+                    "tertiary-fixed": "#ffdad8",
+                    "on-background": "#dae2fd",
+                    "primary": "#8ed5ff",
+                    "surface-container": "#171f33",
+                    "primary-fixed-dim": "#7bd0ff",
+                    "surface-container-lowest": "#060e20",
+                    "on-secondary-container": "#00311f",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary": "#ffbcba",
+                    "on-primary-fixed-variant": "#004c69",
+                    "on-surface": "#dae2fd",
+                    "surface": "#0b1326",
+                    "error": "#ffb4ab",
+                    "surface-container-low": "#131b2e",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-container": "#ff9391"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "container-gap": "16px",
+                    "xl": "48px",
+                    "md": "24px",
+                    "sm": "16px",
+                    "xs": "8px",
+                    "lg": "32px",
+                    "bento-padding": "24px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "stats-num": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "stats-num": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .bento-card:hover {
+            border-color: rgba(142, 213, 255, 0.4);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(142, 213, 255, 0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(142, 213, 255, 0.4); }
+    </style>
+</head>
+<body class="bg-surface-dim text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- SIDE NAVIGATION SHELL -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low/70 dark:bg-surface-container-low/70 backdrop-blur-xl border-r border-white/10 shadow-xl flex flex-col h-full p-md z-50">
+<div class="mb-lg">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">FoodStock</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-70">Kitchen Logistics</p>
+</div>
+<div class="flex flex-col gap-xs flex-1">
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors active:scale-95 duration-150 rounded-lg group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-lg text-body-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors active:scale-95 duration-150 rounded-lg group" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-body-lg text-body-lg">Inventário</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors active:scale-95 duration-150 rounded-lg group" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-body-lg text-body-lg">Lotes/Validade</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-primary-container bg-primary-container/20 rounded-lg font-bold border-l-4 border-primary transition-colors active:scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="font-body-lg text-body-lg">Movimentações</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors active:scale-95 duration-150 rounded-lg group" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-lg text-body-lg">Configurações</span>
+</a>
+</div>
+<div class="mt-auto pt-md border-t border-white/5 flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary/20 overflow-hidden border border-primary/30">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjwcAdW6Up-Wv9_By_Nkr_ErYtrVm_kwembiRSF03Smbw5w_hdiGRAC6D57E_nRtlcSKJVnMNJWDxs680gZjgx9RBmhy4jL70DfcASKTD8m7xxjypa5Qv3TxnYCIGScQ3z0AEnOITk0H3BP-KSstUtARHZIGuE5In8qRd2jtjs4T6QD1wAO6p1fv0h6cdODqi22YHasV66X4wVe9LGRStauCwtP4X9lz4rdP2xAxuPyqS1Sm0FeDVvp4MT6ZUs-sAndaz6OJB4YMTu"/>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-bold text-on-surface">Chef André</p>
+<p class="font-label-caps text-label-caps text-primary opacity-80">ADMINISTRADOR</p>
+</div>
+</div>
+</nav>
+<!-- TOP NAV SHELL -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/50 dark:bg-surface/50 backdrop-blur-md border-b border-white/10 flex justify-between items-center px-lg z-40">
+<div class="flex items-center gap-md">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-body-sm">search</span>
+<input class="bg-surface-container-lowest/50 border-none rounded-full py-2 pl-10 pr-4 text-body-sm focus:ring-2 focus:ring-primary w-64 transition-all" placeholder="Buscar movimentação..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-opacity relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="ml-64 pt-20 p-md min-h-screen">
+<!-- HEADER SECTION -->
+<div class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Histórico de Movimentações</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Rastreabilidade completa de todas as alterações de estoque.</p>
+</div>
+<div class="flex gap-sm items-center bg-surface-container-high p-xs rounded-xl border border-white/5">
+<div class="flex flex-col px-sm">
+<span class="font-label-caps text-label-caps text-primary">PERÍODO</span>
+<span class="font-body-sm text-body-sm">01 Jan - 20 Jan</span>
+</div>
+<button class="bg-primary text-on-primary px-md py-2 rounded-lg font-bold font-body-sm flex items-center gap-xs hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                    Filtrar Data
+                </button>
+</div>
+</div>
+<!-- QUICK STATS BENTO -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-container-gap mb-lg">
+<div class="bento-card p-bento-padding rounded-xl flex flex-col justify-between h-32">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Entradas (Total)</span>
+<div class="flex items-end justify-between">
+<span class="font-stats-num text-stats-num text-secondary">+1,240kg</span>
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-1 rounded-lg">trending_up</span>
+</div>
+</div>
+<div class="bento-card p-bento-padding rounded-xl flex flex-col justify-between h-32 border-l-4 border-l-secondary">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Saídas (Uso)</span>
+<div class="flex items-end justify-between">
+<span class="font-stats-num text-stats-num text-on-surface">-850kg</span>
+<span class="material-symbols-outlined text-on-surface-variant">restaurant</span>
+</div>
+</div>
+<div class="bento-card p-bento-padding rounded-xl flex flex-col justify-between h-32 border-l-4 border-l-error">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Desperdício</span>
+<div class="flex items-end justify-between">
+<span class="font-stats-num text-stats-num text-error">-42kg</span>
+<span class="material-symbols-outlined text-error bg-error/10 p-1 rounded-lg">delete_sweep</span>
+</div>
+</div>
+<div class="bento-card p-bento-padding rounded-xl flex flex-col justify-between h-32 border-l-4 border-l-tertiary">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Vencimento</span>
+<div class="flex items-end justify-between">
+<span class="font-stats-num text-stats-num text-tertiary">-15kg</span>
+<span class="material-symbols-outlined text-tertiary bg-tertiary/10 p-1 rounded-lg">timer_off</span>
+</div>
+</div>
+</div>
+<!-- FILTERS & TOOLS -->
+<div class="mb-md flex flex-wrap gap-sm items-center">
+<div class="flex gap-2">
+<button class="px-md py-1.5 rounded-full bg-primary-container/20 text-primary border border-primary/30 font-body-sm font-bold">Todos</button>
+<button class="px-md py-1.5 rounded-full bg-surface-variant/40 text-on-surface-variant border border-white/5 font-body-sm hover:bg-surface-variant transition-colors">Entradas</button>
+<button class="px-md py-1.5 rounded-full bg-surface-variant/40 text-on-surface-variant border border-white/5 font-body-sm hover:bg-surface-variant transition-colors">Saídas</button>
+</div>
+<div class="h-6 w-px bg-white/10"></div>
+<div class="flex items-center gap-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant">OPERADOR:</span>
+<select class="bg-surface-container-high border border-white/5 rounded-lg px-sm py-1 font-body-sm focus:ring-primary focus:border-primary">
+<option>Todos os Operadores</option>
+<option>André (Admin)</option>
+<option>Beatriz (Chef)</option>
+<option>Carlos (Logística)</option>
+</select>
+</div>
+<button class="ml-auto text-on-surface-variant hover:text-primary flex items-center gap-xs font-body-sm">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+                Exportar CSV
+            </button>
+</div>
+<!-- CHRONOLOGICAL LIST (BENTO GROUPS) -->
+<div class="space-y-lg">
+<!-- DAY GROUP: TODAY -->
+<section>
+<div class="flex items-center gap-md mb-sm">
+<div class="h-px flex-1 bg-white/5"></div>
+<span class="font-label-caps text-label-caps text-primary tracking-widest bg-surface-container-low px-md py-1 rounded-full border border-white/5">HOJE, 20 DE JANEIRO</span>
+<div class="h-px flex-1 bg-white/5"></div>
+</div>
+<div class="space-y-sm">
+<!-- ENTRY 1: Waste -->
+<div class="bento-card p-sm rounded-xl grid grid-cols-12 items-center gap-md group cursor-pointer transition-all hover:translate-x-1">
+<div class="col-span-1 flex justify-center">
+<div class="w-10 h-10 rounded-lg bg-error/10 flex items-center justify-center text-error border border-error/20">
+<span class="material-symbols-outlined">delete_sweep</span>
+</div>
+</div>
+<div class="col-span-3">
+<p class="font-body-lg text-body-lg font-bold text-on-surface">Tomate Cereja</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SKU: FRU-042</p>
+</div>
+<div class="col-span-2">
+<span class="px-sm py-0.5 rounded-full bg-error/10 text-error font-label-caps text-[10px] border border-error/20">DESPERDÍCIO</span>
+</div>
+<div class="col-span-2">
+<p class="font-stats-num text-body-lg text-error">-2.5kg</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Danos no transp.</p>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-xs">
+<div class="w-6 h-6 rounded-full bg-slate-700">
+<img alt="Chef Avatar" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEn4rd0zbx7gQbJDwQkVHyYqhwwWISldeYAwNTuQRrt-ug1Nei9ULdw8bGWBA-A-BX-RxhmXphCxHb7wQ000DkGNdpufo6Bu8Qc6mWEz71-pxwU6SArv_U3dEQA3zhAoBGkJ1Q747MlAyoGYcMzdTU0sZgZOPT8pj8xFg-1pjBBPBQgCCA5ntAWVo-DQYc6UbrSfhKtx_P3kqC87gnJgz7iGySMtAfelpssKU2MG2jbxFZyKWmy3gngp6AEQYqbCcRjXfa155wPfAF"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">Beatriz C.</span>
+</div>
+</div>
+<div class="col-span-2 text-right">
+<span class="font-body-sm text-body-sm text-on-surface-variant">14:22</span>
+</div>
+</div>
+<!-- ENTRY 2: Use -->
+<div class="bento-card p-sm rounded-xl grid grid-cols-12 items-center gap-md group cursor-pointer transition-all hover:translate-x-1">
+<div class="col-span-1 flex justify-center">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+</div>
+<div class="col-span-3">
+<p class="font-body-lg text-body-lg font-bold text-on-surface">Filé Mignon</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SKU: CAR-901</p>
+</div>
+<div class="col-span-2">
+<span class="px-sm py-0.5 rounded-full bg-on-primary-container/20 text-on-primary-container font-label-caps text-[10px] border border-white/5">USO (COZINHA)</span>
+</div>
+<div class="col-span-2">
+<p class="font-stats-num text-body-lg text-on-surface">-15.0kg</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Requisição Jantar</p>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-xs">
+<div class="w-6 h-6 rounded-full bg-slate-700">
+<img alt="Chef Avatar" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH4GAOwT9zJpWGBkQCk6kry-8KuOB1wROLxxUgNnbS__-wHeEw4BYgtRYZk3xo-zrDl4N3Z7kSaHPkS5I1hME9cpIwdRpIce8WwnjCiiZ1UBSxuKUblEBn6oJKELH0BUKDSxI0YYRv5gs-12l4X4sNl29-MC88vuub0bj5xh57ztb1m7vk-uA8JBscE6p4nncIQongdeK1hWeNB7jqf34kLq7-w6P57ToRhZ9wK5nyzrR0MvSNyyYbLFk5ebk_1UuQu48c81U_kYQJ"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">André V.</span>
+</div>
+</div>
+<div class="col-span-2 text-right">
+<span class="font-body-sm text-body-sm text-on-surface-variant">11:05</span>
+</div>
+</div>
+<!-- ENTRY 3: Entry -->
+<div class="bento-card p-sm rounded-xl grid grid-cols-12 items-center gap-md group cursor-pointer transition-all hover:translate-x-1">
+<div class="col-span-1 flex justify-center">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20">
+<span class="material-symbols-outlined">inventory</span>
+</div>
+</div>
+<div class="col-span-3">
+<p class="font-body-lg text-body-lg font-bold text-on-surface">Arroz Arbóreo</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SKU: GRA-011</p>
+</div>
+<div class="col-span-2">
+<span class="px-sm py-0.5 rounded-full bg-secondary/10 text-secondary font-label-caps text-[10px] border border-secondary/20">ENTRADA</span>
+</div>
+<div class="col-span-2">
+<p class="font-stats-num text-body-lg text-secondary">+50.0kg</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Fornecedor: GrãoSul</p>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-xs">
+<div class="w-6 h-6 rounded-full bg-slate-700">
+<img alt="Chef Avatar" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXXEYOF_v4m5lx2r40IBlcEBdxnGBxAj4qoLO1A7W74cq9CG2xTjnmj7iLF1mMiWIV4xC_ZnNnQOr64klOnEoRIpXinPFUa0Rdw0KDS1Mj3FYVLji9bvsUTjYL2aW_jLSxzru8klGM36jh2eX9EVZbO7sb8Alb14o6aIP3oR_80MgN2FvfbPHr27wa88k_bfAWo7sq_gwTKgcwWJrM0fnlxpJ9LiIqgw-CnOEfOMXUwcB5w1q75rcAMZSqgg8DcaWqPe72u-qzmE7n"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">Carlos M.</span>
+</div>
+</div>
+<div class="col-span-2 text-right">
+<span class="font-body-sm text-body-sm text-on-surface-variant">08:45</span>
+</div>
+</div>
+</div>
+</section>
+<!-- DAY GROUP: YESTERDAY -->
+<section>
+<div class="flex items-center gap-md mb-sm">
+<div class="h-px flex-1 bg-white/5"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest bg-surface-container-low px-md py-1 rounded-full border border-white/5">ONTEM, 19 DE JANEIRO</span>
+<div class="h-px flex-1 bg-white/5"></div>
+</div>
+<div class="space-y-sm">
+<!-- ENTRY: Expiration -->
+<div class="bento-card p-sm rounded-xl grid grid-cols-12 items-center gap-md group cursor-pointer transition-all hover:translate-x-1">
+<div class="col-span-1 flex justify-center">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary border border-tertiary/20">
+<span class="material-symbols-outlined">timer_off</span>
+</div>
+</div>
+<div class="col-span-3">
+<p class="font-body-lg text-body-lg font-bold text-on-surface">Leite Integral</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SKU: LAC-222</p>
+</div>
+<div class="col-span-2">
+<span class="px-sm py-0.5 rounded-full bg-tertiary/10 text-tertiary font-label-caps text-[10px] border border-tertiary/20">VENCIMENTO</span>
+</div>
+<div class="col-span-2">
+<p class="font-stats-num text-body-lg text-tertiary">-12.0L</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Lote: VNC-2023</p>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-xs">
+<div class="w-6 h-6 rounded-full bg-slate-700">
+<img alt="Chef Avatar" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1sBCEZ6xPJ2LAXn0QU03o9vc9t9kllH6XwhtzNyDH48jnoQn7BH4fifSg4H-20m2ZORPduq1-cgwPO48LgHo4WnDQhgdr-EaLugPTG7ibWJv_C34fLkzfXRw_keGw6HI6SHM2lV2AQTIG4PraYPb92GMW6ZAO68WyAzvX7cyoPbhEJl06SkOFYxsfRoPCJMxotrEdW4pO1N_KYHIu-tKviu1yL2uFiMpblu3-G8aRjPViS3x2SBpZaCzHJazonGoAfdiUbIJA60UK"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">André V.</span>
+</div>
+</div>
+<div class="col-span-2 text-right">
+<span class="font-body-sm text-body-sm text-on-surface-variant">22:15</span>
+</div>
+</div>
+<!-- ENTRY: Use -->
+<div class="bento-card p-sm rounded-xl grid grid-cols-12 items-center gap-md group cursor-pointer transition-all hover:translate-x-1">
+<div class="col-span-1 flex justify-center">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+</div>
+<div class="col-span-3">
+<p class="font-body-lg text-body-lg font-bold text-on-surface">Manteiga sem Sal</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SKU: LAC-005</p>
+</div>
+<div class="col-span-2">
+<span class="px-sm py-0.5 rounded-full bg-on-primary-container/20 text-on-primary-container font-label-caps text-[10px] border border-white/5">USO (COZINHA)</span>
+</div>
+<div class="col-span-2">
+<p class="font-stats-num text-body-lg text-on-surface">-5.0kg</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Panificação</p>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-xs">
+<div class="w-6 h-6 rounded-full bg-slate-700">
+<img alt="Chef Avatar" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlU9rdWxQWLVwRmyvU_gghOLuwdki2ncA8b59l2EEl1job9Y2DwVDRP5XWhkEkEgam7GqDCjk-BZ-VcUpR7odyG58o5pda2bNN-sDdGPC_ZkyFllNNM7lePko_OkgRBtoNAz_iMEDZxCth9hXtQa_mPzXRWAYjyoyIuIVm0hTY-UCLNX96AbLGhqX1LRvg0DnNpjROrb2UxXBdFVRsbMMmd3cH6Xv5PESK0dTThz3R7KiaINkJ95h2TLrzSSc87KEhoLLyEkZckzDf"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">Beatriz C.</span>
+</div>
+</div>
+<div class="col-span-2 text-right">
+<span class="font-body-sm text-body-sm text-on-surface-variant">16:30</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- LOAD MORE -->
+<div class="mt-lg flex justify-center">
+<button class="px-xl py-3 rounded-xl bento-card border border-white/10 font-bold text-on-surface hover:bg-white/5 transition-all flex items-center gap-sm">
+<span class="material-symbols-outlined">expand_more</span>
+                Ver Movimentações Anteriores
+            </button>
+</div>
+</main>
+<!-- FLOATING ACTION BUTTON - SUPPRESSED per rule for detail screens, but kept invisible in code for architecture awareness -->
+<script>
+        // Light interactive hover effect for bento cards
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                // Subtle lift on hover
+                card.style.transform = 'translateY(-2px)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0px)';
+            });
+        });
+
+        // Simple active state toggle simulation for filter buttons
+        const filterBtns = document.querySelectorAll('.rounded-full');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-primary-container/20', 'text-primary', 'border-primary/30', 'font-bold');
+                    b.classList.add('bg-surface-variant/40', 'text-on-surface-variant', 'border-white/5');
+                });
+                btn.classList.add('bg-primary-container/20', 'text-primary', 'border-primary/30', 'font-bold');
+                btn.classList.remove('bg-surface-variant/40', 'text-on-surface-variant', 'border-white/5');
+            });
+        });
+    </script>
+</body></html>
+
+<!-- Inventário - FoodStock -->
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#00354a",
+                    "surface-dim": "#0b1326",
+                    "on-tertiary-fixed-variant": "#881d24",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-tertiary-fixed": "#410006",
+                    "on-surface-variant": "#bdc8d1",
+                    "secondary-container": "#00a572",
+                    "on-secondary": "#003824",
+                    "inverse-surface": "#dae2fd",
+                    "on-primary-fixed": "#001e2c",
+                    "outline": "#87929a",
+                    "on-tertiary": "#670211",
+                    "inverse-primary": "#00668a",
+                    "surface-variant": "#2d3449",
+                    "surface-tint": "#7bd0ff",
+                    "on-error": "#690005",
+                    "on-tertiary-container": "#841a22",
+                    "background": "#0b1326",
+                    "surface-container-high": "#222a3d",
+                    "surface-container-highest": "#2d3449",
+                    "primary-fixed": "#c4e7ff",
+                    "on-primary-container": "#004965",
+                    "on-secondary-fixed": "#002113",
+                    "error-container": "#93000a",
+                    "outline-variant": "#3e484f",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "primary-container": "#38bdf8",
+                    "inverse-on-surface": "#283044",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#4edea3",
+                    "surface-bright": "#31394d",
+                    "tertiary-fixed": "#ffdad8",
+                    "on-background": "#dae2fd",
+                    "primary": "#8ed5ff",
+                    "surface-container": "#171f33",
+                    "primary-fixed-dim": "#7bd0ff",
+                    "surface-container-lowest": "#060e20",
+                    "on-secondary-container": "#00311f",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary": "#ffbcba",
+                    "on-primary-fixed-variant": "#004c69",
+                    "on-surface": "#dae2fd",
+                    "surface": "#0b1326",
+                    "error": "#ffb4ab",
+                    "surface-container-low": "#131b2e",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-container": "#ff9391"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "container-gap": "16px",
+                    "xl": "48px",
+                    "md": "24px",
+                    "sm": "16px",
+                    "xs": "8px",
+                    "lg": "32px",
+                    "bento-padding": "24px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "stats-num": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "stats-num": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .bento-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+        }
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+        }
+    </style>
+</head>
+<body class="font-body-lg text-body-lg overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low/70 dark:bg-surface-container-low/70 backdrop-blur-xl border-r border-white/10 shadow-xl flex flex-col h-full p-md z-50">
+<div class="mb-xl px-xs">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">FoodStock</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-70">Kitchen Logistics</p>
+</div>
+<nav class="flex-1 space-y-xs">
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-primary-container bg-primary-container/20 rounded-lg font-bold border-l-4 border-primary active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Inventário</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span>Lotes/Validade</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span>Movimentações</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Configurações</span>
+</a>
+</nav>
+<div class="mt-auto pt-md border-t border-white/10 flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container/30 border border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm font-bold text-on-surface">Chef de Cozinha</p>
+<p class="text-[10px] uppercase tracking-wider text-primary">Unidade Matriz</p>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/50 dark:bg-surface/50 backdrop-blur-md border-b border-white/10 flex justify-between items-center px-lg z-40">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-full max-w-md group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-highest/50 border-none rounded-lg py-2 pl-10 pr-4 text-body-sm focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Buscar produtos ou lotes..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md ml-lg">
+<button class="text-on-surface-variant hover:text-primary transition-opacity relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary overflow-hidden">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="A professional profile portrait of a modern culinary logistics manager, clean-shaven with a confident expression, wearing a stylish dark apron. The background is a slightly blurred high-tech kitchen environment with cool blue and slate grey tones, illuminated by soft cinematic lighting. High-end digital art style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhWWbyO3Z_XgSqgflzVmgsPXCKPKDps9f1rffre8gENrgEnjM2JEKGcMcXibjVr2GD-gMsGAS4p1l6ofB9dcPjxbVysH5ZkqDyJy0ppOyWuem8mlm7DP4ZoRSr8mSlvBxbTn59Um9Y4QRl533JD5Xm7QyX8ObROp27ntMwwoEtlfpq1mqEJmfvkEwmLIpjr_pMlKPY9K10KYZtsQ_v5B_Y5fjGgkfblTOBPsjrLiIIQMQhJq-1yxs1wpMdtyOIXyKKMtSILzdPkQUX"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 mt-16 p-lg">
+<div class="max-w-7xl mx-auto space-y-md">
+<!-- Header & Filters -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface">Inventário Central</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Gerencie o fluxo de insumos e controle de validades em tempo real.</p>
+</div>
+<div class="flex flex-wrap gap-sm">
+<div class="flex bg-surface-container-high p-1 rounded-lg">
+<button class="px-4 py-1.5 rounded-md text-on-primary bg-primary-container font-bold text-body-sm transition-all">Todos</button>
+<button class="px-4 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-medium text-body-sm transition-all">Perecíveis</button>
+<button class="px-4 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-medium text-body-sm transition-all">Secos</button>
+</div>
+<div class="flex bg-surface-container-high p-1 rounded-lg">
+<button class="px-4 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-medium text-body-sm transition-all flex items-center gap-2">
+<span class="w-2 h-2 bg-error rounded-full"></span> Crítico
+                        </button>
+<button class="px-4 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-medium text-body-sm transition-all flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary rounded-full"></span> Estável
+                        </button>
+</div>
+</div>
+</div>
+<!-- Bento Stats -->
+<div class="bento-grid">
+<div class="col-span-12 md:col-span-3 glass-card p-bento-padding rounded-xl flex flex-col justify-between group hover:border-primary/30 transition-all">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">inventory</span>
+<span class="text-secondary font-bold text-body-sm">+12%</span>
+</div>
+<div class="mt-md">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase opacity-60">Total de Itens</p>
+<p class="font-stats-num text-stats-num text-on-surface">1,248 <span class="text-body-sm font-normal text-on-surface-variant">un</span></p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-3 glass-card p-bento-padding rounded-xl flex flex-col justify-between group hover:border-error/30 transition-all">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-error bg-error/10 p-2 rounded-lg">warning</span>
+<span class="text-error font-bold text-body-sm">ALERTA</span>
+</div>
+<div class="mt-md">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase opacity-60">Validade Próxima</p>
+<p class="font-stats-num text-stats-num text-error">14 <span class="text-body-sm font-normal text-on-surface-variant">lotes</span></p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-6 glass-card p-bento-padding rounded-xl group hover:border-secondary/30 transition-all">
+<div class="flex justify-between items-center mb-md">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase opacity-60">Fluxo de Reposição</p>
+<p class="font-title-md text-title-md text-on-surface">Eficiência Operacional</p>
+</div>
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-2 rounded-lg">trending_up</span>
+</div>
+<div class="h-12 w-full flex items-end gap-1">
+<!-- Mock Chart -->
+<div class="flex-1 bg-primary/20 h-1/2 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-2/3 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/40 h-3/4 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-1/2 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/60 h-full rounded-t-sm"></div>
+<div class="flex-1 bg-primary/30 h-4/5 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-1/3 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/50 h-3/4 rounded-t-sm"></div>
+</div>
+</div>
+</div>
+<!-- Modern Glass Inventory Table -->
+<div class="glass-card rounded-xl overflow-hidden shadow-2xl">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-white/5 border-b border-white/10">
+<th class="p-md font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Nome do Produto</th>
+<th class="p-md font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Categoria</th>
+<th class="p-md font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Lote / Validade</th>
+<th class="p-md font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Quantidade</th>
+<th class="p-md font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Esgotamento</th>
+<th class="p-md font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-right">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<!-- Row 1: CRITICAL -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center border border-white/10 group-hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary">restaurant</span>
+</div>
+<div>
+<p class="font-title-md text-body-lg font-bold text-on-surface">Filé Mignon Angus</p>
+<p class="text-[10px] text-on-surface-variant opacity-60">SKU: FS-MEAT-0021</p>
+</div>
+</div>
+</td>
+<td class="p-md">
+<span class="px-2 py-1 rounded bg-tertiary-container/10 text-tertiary text-[11px] font-bold border border-tertiary/20">Perecível</span>
+</td>
+<td class="p-md">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">L-9028-A</span>
+<span class="text-error font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">event_busy</span>
+                                        24/05/2024
+                                    </span>
+</div>
+</td>
+<td class="p-md">
+<p class="font-stats-num text-body-lg font-bold">12,5 <span class="text-body-sm font-normal opacity-60">kg</span></p>
+<div class="w-24 h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-error w-1/5"></div>
+</div>
+</td>
+<td class="p-md">
+<span class="px-3 py-1 rounded-full bg-error/10 text-error font-bold text-[11px] border border-error/20">3 dias</span>
+</td>
+<td class="p-md text-right">
+<button class="p-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: STABLE -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center border border-white/10 group-hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary">liquor</span>
+</div>
+<div>
+<p class="font-title-md text-body-lg font-bold text-on-surface">Azeite Extra Virgem 5L</p>
+<p class="text-[10px] text-on-surface-variant opacity-60">SKU: FS-DRY-0112</p>
+</div>
+</div>
+</td>
+<td class="p-md">
+<span class="px-2 py-1 rounded bg-secondary-container/10 text-secondary text-[11px] font-bold border border-secondary/20">Seco</span>
+</td>
+<td class="p-md">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">L-0422-C</span>
+<span class="text-secondary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                        12/12/2025
+                                    </span>
+</div>
+</td>
+<td class="p-md">
+<p class="font-stats-num text-body-lg font-bold">45 <span class="text-body-sm font-normal opacity-60">un</span></p>
+<div class="w-24 h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-secondary w-3/4"></div>
+</div>
+</td>
+<td class="p-md">
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-medium text-[11px] border border-white/5">18 dias</span>
+</td>
+<td class="p-md text-right">
+<button class="p-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center border border-white/10 group-hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-primary">local_pizza</span>
+</div>
+<div>
+<p class="font-title-md text-body-lg font-bold text-on-surface">Farinha de Trigo 00</p>
+<p class="text-[10px] text-on-surface-variant opacity-60">SKU: FS-DRY-0089</p>
+</div>
+</div>
+</td>
+<td class="p-md">
+<span class="px-2 py-1 rounded bg-secondary-container/10 text-secondary text-[11px] font-bold border border-secondary/20">Seco</span>
+</td>
+<td class="p-md">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">L-8871-Z</span>
+<span class="text-on-surface-variant font-medium flex items-center gap-1 opacity-70">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                        15/08/2024
+                                    </span>
+</div>
+</td>
+<td class="p-md">
+<p class="font-stats-num text-body-lg font-bold">120 <span class="text-body-sm font-normal opacity-60">kg</span></p>
+<div class="w-24 h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary w-1/2"></div>
+</div>
+</td>
+<td class="p-md">
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-medium text-[11px] border border-white/5">8 dias</span>
+</td>
+<td class="p-md text-right">
+<button class="p-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-md bg-white/5 border-t border-white/10 flex justify-between items-center">
+<p class="text-body-sm text-on-surface-variant">Exibindo 3 de 142 itens</p>
+<div class="flex gap-xs">
+<button class="w-8 h-8 rounded border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary-container text-on-primary font-bold text-body-sm">1</button>
+<button class="w-8 h-8 rounded border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors text-body-sm">2</button>
+<button class="w-8 h-8 rounded border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB: Nova Entrada -->
+<button class="fixed bottom-lg right-lg w-16 h-16 bg-primary text-on-primary rounded-full shadow-[0_0_20px_rgba(142,213,255,0.4)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-[32px] group-hover:rotate-90 transition-transform">add</span>
+<span class="absolute right-full mr-4 bg-surface-bright px-4 py-2 rounded-lg border border-white/10 text-body-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl">Nova Entrada de Estoque</span>
+</button>
+<script>
+        // Micro-interaction for hover effects on glass cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>
+
+<!-- Dashboard FoodStock -->
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FoodStock - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#00354a",
+                    "surface-dim": "#0b1326",
+                    "on-tertiary-fixed-variant": "#881d24",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-tertiary-fixed": "#410006",
+                    "on-surface-variant": "#bdc8d1",
+                    "secondary-container": "#00a572",
+                    "on-secondary": "#003824",
+                    "inverse-surface": "#dae2fd",
+                    "on-primary-fixed": "#001e2c",
+                    "outline": "#87929a",
+                    "on-tertiary": "#670211",
+                    "inverse-primary": "#00668a",
+                    "surface-variant": "#2d3449",
+                    "surface-tint": "#7bd0ff",
+                    "on-error": "#690005",
+                    "on-tertiary-container": "#841a22",
+                    "background": "#0b1326",
+                    "surface-container-high": "#222a3d",
+                    "surface-container-highest": "#2d3449",
+                    "primary-fixed": "#c4e7ff",
+                    "on-primary-container": "#004965",
+                    "on-secondary-fixed": "#002113",
+                    "error-container": "#93000a",
+                    "outline-variant": "#3e484f",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "primary-container": "#38bdf8",
+                    "inverse-on-surface": "#283044",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#4edea3",
+                    "surface-bright": "#31394d",
+                    "tertiary-fixed": "#ffdad8",
+                    "on-background": "#dae2fd",
+                    "primary": "#8ed5ff",
+                    "surface-container": "#171f33",
+                    "primary-fixed-dim": "#7bd0ff",
+                    "surface-container-lowest": "#060e20",
+                    "on-secondary-container": "#00311f",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary": "#ffbcba",
+                    "on-primary-fixed-variant": "#004c69",
+                    "on-surface": "#dae2fd",
+                    "surface": "#0b1326",
+                    "error": "#ffb4ab",
+                    "surface-container-low": "#131b2e",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-container": "#ff9391"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "container-gap": "16px",
+                    "xl": "48px",
+                    "md": "24px",
+                    "sm": "16px",
+                    "xs": "8px",
+                    "lg": "32px",
+                    "bento-padding": "24px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "stats-num": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "stats-num": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(142, 213, 255, 0.3);
+            box-shadow: 0 0 20px rgba(123, 208, 255, 0.1);
+        }
+
+        .bento-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(12, 1fr);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Status colors */
+        .status-pill-low { background: rgba(255, 180, 171, 0.1); color: #ffb4ab; }
+        .status-pill-optimal { background: rgba(78, 222, 163, 0.1); color: #4edea3; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low/70 backdrop-blur-xl border-r border-white/10 shadow-xl flex flex-col p-md z-50">
+<div class="mb-lg">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">FoodStock</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant/70">Kitchen Logistics</p>
+</div>
+<nav class="flex-grow space-y-2">
+<a class="flex items-center gap-sm p-sm text-on-primary-container bg-primary-container/20 rounded-lg font-bold border-l-4 border-primary transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-lg text-body-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-body-lg text-body-lg">Inventário</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-body-lg text-body-lg">Lotes/Validade</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="font-body-lg text-body-lg">Movimentações</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant font-medium hover:bg-surface-variant/30 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-lg text-body-lg">Configurações</span>
+</a>
+</nav>
+<div class="mt-auto pt-md border-t border-white/5">
+<div class="flex items-center gap-sm px-sm">
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full border border-primary/20" data-alt="A professional headshot of a head chef in a high-end restaurant, wearing a crisp white double-breasted jacket. The background is a soft-focus professional kitchen with stainless steel equipment and warm ambient lighting. The portrait is high-contrast and professional, matching the dark slate and sky blue brand identity of FoodStock." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChbGUSesEYklMB4WJVFREtNp6XHjA8o91A32h0_wU3ryVVhmCwhLzeCPIpfuiSSxtycTm-y5cEY3nHF-0xFM31t0_l2haRnW2m6UxS22-A3BNn019ic3IrqVLbgLHtuJkjEMPV20qnJ9geSvogDbA3QP6c7kC3MaQkf4PN4qwfuXk6k5gGm_ZZOqyo6OQiiIe7HVrOSTzj_WHStRLFXxF3nXYk-7x47TducOfcbd4NtOTouC-Nj8rcOlBB6ETYodfAEsGczusggqRB"/>
+<div>
+<p class="font-body-sm text-body-sm font-bold text-on-surface">Chef André</p>
+<p class="text-[10px] uppercase tracking-wider text-primary">Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/50 backdrop-blur-md border-b border-white/10 flex justify-between items-center px-lg z-40">
+<div class="flex items-center gap-md">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="bg-surface-container-lowest/50 border-none rounded-full pl-10 pr-4 py-2 text-body-sm focus:ring-2 focus:ring-primary w-64 transition-all" placeholder="Buscar insumos, lotes..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="relative text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-6 w-[1px] bg-white/10 mx-xs"></div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">SETOR: COZINHA CENTRAL</p>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-20 p-lg min-h-screen">
+<div class="max-w-[1400px] mx-auto">
+<!-- Header Section -->
+<div class="mb-lg flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface">Visão Geral</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Monitoramento de estoque em tempo real.</p>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-sm rounded-lg border border-white/10 bg-white/5 font-body-sm text-body-sm hover:bg-white/10 transition-colors">Relatório PDF</button>
+<button class="px-md py-sm rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-bold active:scale-95 transition-transform">Novo Registro</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="bento-grid">
+<!-- 1. Status Geral (Wide) -->
+<div class="col-span-12 lg:col-span-7 glass-card p-bento-padding rounded-xl flex flex-col justify-between">
+<div class="flex justify-between items-start mb-md">
+<div>
+<p class="font-label-caps text-label-caps text-primary uppercase mb-xs">Status do Depósito A1</p>
+<h3 class="font-title-md text-title-md text-on-surface">Ocupação do Estoque</h3>
+</div>
+<div class="text-right">
+<span class="font-stats-num text-stats-num text-primary">84%</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Capacidade Total</p>
+</div>
+</div>
+<div class="w-full h-4 bg-surface-container-highest rounded-full overflow-hidden mb-lg">
+<div class="h-full bg-primary w-[84%] relative">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/20"></div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-md">
+<div class="p-sm bg-white/5 rounded-lg">
+<p class="font-label-caps text-label-caps text-on-surface-variant">Total Itens</p>
+<p class="font-stats-num text-stats-num text-on-surface">1,248</p>
+</div>
+<div class="p-sm bg-white/5 rounded-lg border-l-2 border-secondary">
+<p class="font-label-caps text-label-caps text-on-surface-variant">Giro Médio</p>
+<p class="font-stats-num text-stats-num text-on-surface">4.2<span class="text-body-sm font-normal text-on-surface-variant">/dia</span></p>
+</div>
+<div class="p-sm bg-white/5 rounded-lg border-l-2 border-primary">
+<p class="font-label-caps text-label-caps text-on-surface-variant">Custo Total</p>
+<p class="font-stats-num text-stats-num text-on-surface">R$ 12k</p>
+</div>
+</div>
+</div>
+<!-- 2. Alertas Críticos (Small) -->
+<div class="col-span-12 lg:col-span-5 glass-card p-bento-padding rounded-xl border-l-4 border-error">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h3 class="font-title-md text-title-md text-on-surface">Alertas Críticos</h3>
+</div>
+<div class="space-y-sm max-h-[160px] overflow-y-auto pr-xs">
+<div class="flex justify-between items-center p-sm bg-error/10 rounded-lg">
+<div>
+<p class="font-body-lg text-body-lg font-bold text-error">Filé Mignon 5kg</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Lote #X992 • Vence amanhã</p>
+</div>
+<span class="material-symbols-outlined text-error">chevron_right</span>
+</div>
+<div class="flex justify-between items-center p-sm bg-error/10 rounded-lg">
+<div>
+<p class="font-body-lg text-body-lg font-bold text-error">Queijo Gorgonzola</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Lote #Z110 • Vencido (2h)</p>
+</div>
+<span class="material-symbols-outlined text-error">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- 4. Consumo Semanal (Large Area) -->
+<div class="col-span-12 lg:col-span-8 glass-card p-bento-padding rounded-xl">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-title-md text-title-md text-on-surface">Consumo Semanal</h3>
+<div class="flex gap-xs">
+<span class="px-xs py-1 rounded bg-primary/20 text-primary font-label-caps text-[10px]">PROTEÍNAS</span>
+<span class="px-xs py-1 rounded bg-secondary/20 text-secondary font-label-caps text-[10px]">VEGETAIS</span>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-sm relative">
+<!-- Simulated Chart -->
+<div class="absolute inset-0 flex flex-col justify-between py-xs pointer-events-none">
+<div class="border-t border-white/5 w-full h-0"></div>
+<div class="border-t border-white/5 w-full h-0"></div>
+<div class="border-t border-white/5 w-full h-0"></div>
+<div class="border-t border-white/5 w-full h-0"></div>
+</div>
+<!-- Bars -->
+<div class="flex-1 flex flex-col justify-end items-center gap-xs z-10">
+<div class="w-full bg-primary/40 rounded-t h-[60%] hover:bg-primary transition-colors cursor-pointer group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface p-1 rounded border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">120kg</div>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">SEG</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-xs z-10">
+<div class="w-full bg-primary/40 rounded-t h-[75%] hover:bg-primary transition-colors cursor-pointer group relative"></div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">TER</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-xs z-10">
+<div class="w-full bg-primary/40 rounded-t h-[45%] hover:bg-primary transition-colors cursor-pointer group relative"></div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">QUA</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-xs z-10">
+<div class="w-full bg-primary/40 rounded-t h-[90%] hover:bg-primary transition-colors cursor-pointer group relative"></div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">QUI</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-xs z-10">
+<div class="w-full bg-primary/40 rounded-t h-[100%] hover:bg-primary transition-colors cursor-pointer group relative"></div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">SEX</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-xs z-10">
+<div class="w-full bg-primary/40 rounded-t h-[65%] hover:bg-primary transition-colors cursor-pointer group relative"></div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">SAB</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-xs z-10">
+<div class="w-full bg-primary/40 rounded-t h-[30%] hover:bg-primary transition-colors cursor-pointer group relative"></div>
+<span class="font-label-caps text-[10px] text-on-surface-variant">DOM</span>
+</div>
+</div>
+</div>
+<!-- 3. Previsão IA (Sidebar widget style) -->
+<div class="col-span-12 lg:col-span-4 glass-card p-bento-padding rounded-xl bg-gradient-to-br from-primary-container/10 to-transparent">
+<div class="flex items-center gap-xs mb-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<p class="font-label-caps text-label-caps text-primary uppercase">IA Predictive Insights</p>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-md">Sugestão de Reabastecimento</h3>
+<div class="space-y-md">
+<div class="p-sm bg-surface-container-highest/50 rounded-lg border border-primary/20">
+<div class="flex justify-between mb-xs">
+<span class="font-body-lg text-body-lg font-bold">Arroz Arbóreo</span>
+<span class="text-primary">+20kg</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Estoque esgotará em 3 dias baseado no consumo médio de sexta-feira.</p>
+<button class="mt-sm w-full py-2 bg-primary/20 hover:bg-primary/30 text-primary rounded-lg text-body-sm font-bold transition-all">Adicionar à Lista</button>
+</div>
+<div class="p-sm bg-surface-container-highest/50 rounded-lg border border-white/5">
+<div class="flex justify-between mb-xs">
+<span class="font-body-lg text-body-lg font-bold">Azeite Extra Virgem</span>
+<span class="text-primary">+12un</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Preço reduzido no fornecedor habitual. Momento ideal para estoque.</p>
+</div>
+</div>
+</div>
+<!-- 5. Últimas Movimentações (Full Width / Flexible) -->
+<div class="col-span-12 glass-card rounded-xl overflow-hidden">
+<div class="p-bento-padding flex justify-between items-center border-b border-white/5">
+<h3 class="font-title-md text-title-md text-on-surface">Últimas Movimentações</h3>
+<a class="text-primary text-body-sm hover:underline" href="#">Ver todo histórico</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm">
+<thead class="bg-white/5 text-on-surface-variant uppercase text-[10px] tracking-widest">
+<tr>
+<th class="p-md">Insumo</th>
+<th class="p-md">Tipo</th>
+<th class="p-md">Qtd</th>
+<th class="p-md">Usuário</th>
+<th class="p-md">Data/Hora</th>
+<th class="p-md">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/5 transition-colors">
+<td class="p-md font-bold text-on-surface">Tomate Cereja (Caixa 2kg)</td>
+<td class="p-md"><span class="px-2 py-1 rounded-full bg-error/10 text-error text-[10px] font-bold">SAÍDA</span></td>
+<td class="p-md">-3 un</td>
+<td class="p-md">Cozinheiro João</td>
+<td class="p-md text-on-surface-variant">Hoje, 10:45</td>
+<td class="p-md"><span class="status-pill-optimal px-2 py-1 rounded-full text-[10px] font-bold">CONCLUÍDO</span></td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="p-md font-bold text-on-surface">Farinha de Trigo 00</td>
+<td class="p-md"><span class="px-2 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold">ENTRADA</span></td>
+<td class="p-md">+50 kg</td>
+<td class="p-md">Recebimento</td>
+<td class="p-md text-on-surface-variant">Hoje, 09:12</td>
+<td class="p-md"><span class="status-pill-optimal px-2 py-1 rounded-full text-[10px] font-bold">CONCLUÍDO</span></td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="p-md font-bold text-on-surface">Vinho Tinto Seco</td>
+<td class="p-md"><span class="px-2 py-1 rounded-full bg-error/10 text-error text-[10px] font-bold">SAÍDA</span></td>
+<td class="p-md">-2 un</td>
+<td class="p-md">Maitre Silva</td>
+<td class="p-md text-on-surface-variant">Hoje, 08:30</td>
+<td class="p-md"><span class="status-pill-optimal px-2 py-1 rounded-full text-[10px] font-bold">CONCLUÍDO</span></td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="p-md font-bold text-on-surface">Salmão Inteiro</td>
+<td class="p-md"><span class="px-2 py-1 rounded-full bg-error/10 text-error text-[10px] font-bold">SAÍDA</span></td>
+<td class="p-md">-12 kg</td>
+<td class="p-md">Chef André</td>
+<td class="p-md text-on-surface-variant">Ontem, 22:15</td>
+<td class="p-md"><span class="status-pill-optimal px-2 py-1 rounded-full text-[10px] font-bold">CONCLUÍDO</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Background Decoration -->
+<div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] pointer-events-none z-0"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-secondary/5 blur-[120px] pointer-events-none z-0"></div>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential for adding subtle movement or sound if required
+            });
+        });
+
+        // Simple search feedback
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            if (e.target.value.length > 0) {
+                console.log('Searching for:', e.target.value);
+            }
+        });
+    </script>
+</body></html>
+
+
+
